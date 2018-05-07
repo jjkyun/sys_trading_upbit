@@ -30,7 +30,6 @@ def MakeMovingAverageLine(df):
 
     return moving_average_df
 
-
 '''
 1. Catch the Order of Moving Averge lines
 2. Invest 80000000 won at the time
@@ -54,10 +53,11 @@ def MalInOrderAlgorithm(df):
     
     for index, row in df.iterrows():
         ## if MAL is in order: BUY
-        if row[6] < row[12] and row[12] < row[24] and row[24] < row[48] and row[48] < row[144] and row[144] < row[288] and row[288] < row[432]:
-            new_status = 'buy'            
-        else:
-            new_status = 'sell'
+        if row[288] > 0: 
+            if row[48] > row[144] and row[144] > row[288]:
+                new_status = 'buy'            
+            else:
+                new_status = 'sell'
 
         ## can't SELL at first time AND can't do transaction in same status
         if old_status != new_status:
